@@ -6,18 +6,15 @@
 
 .tela{
     display: none;
-    
 }
 .ativa{
     display: block;
-
 }
 
 .Topico{
     margin-bottom: 50px;
     margin-top: 20px;
    width: 450px;  
- 
 }
 
  header {
@@ -33,13 +30,11 @@
    }
 
 nav .btn{
-
      width: fit-content;
     margin: 60px auto;
     border-style: groove;
      margin-bottom: 20px;
     margin-top: 20px;
-    
     }
 
     button{
@@ -50,7 +45,6 @@ nav .btn{
     }
 
     button:hover{
-
     scale: 1.05;   
     border-radius: 7px;
 }
@@ -58,4 +52,10 @@ nav .btn{
 #btnIn button{
     background-color: #00000000;
     border: none;
+}
+
+.produto-item {
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
 }
