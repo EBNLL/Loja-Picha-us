@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="clientes/Gemini_Generated_Image_ttbcifttbcifttbc-removebg-preview.png" alt="Loja-Picha-us" width="900">
+  <img src="principal/Gemini_Generated_Image_ttbcifttbcifttbc-removebg-preview.png" alt="Loja-Picha-us" width="900">
 </p>
 
 <h1 align="center">🛒 Loja-Picha-us</h1>
