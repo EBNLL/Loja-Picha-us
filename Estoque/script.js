@@ -86,13 +86,14 @@ function alterarEstoque(){
     
     //Vasculhar array pelo produto
     for(let i = 0; i < estoque.length; i++){
-        if(produto == inputId.value){
+        if(produto == estoque[i].id){
             //Alterar valor do estoque
             estoque[i].estoque += Number(quantia.value)
         }
     }
 
     mostrarEstoque()
+    procurarProduto()
 }
 
 //Funções user friendly
