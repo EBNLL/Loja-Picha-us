@@ -1,4 +1,4 @@
-let total = 0;
+let total = 0
 const produtos = [
     { id: 0, nome: "Notebook", preco: 4500.00, estoque: 35, rating: 4.8 },
     { id: 1, nome: "Mouse", preco: 150.00, estoque: 120, rating: 4.5 },
@@ -50,10 +50,9 @@ const produtos = [
     { id: 47, nome: "Purificador de Água", preco: 600.00, estoque: 35, rating: 4.7 },
     { id: 48, nome: "Fogão 4 Bocas", preco: 800.00, estoque: 40, rating: 4.6 },
     { id: 49, nome: "Filtro de Linha", preco: 40.00, estoque: 200, rating: 4.8 }
-];
-
-let meusFavoritos = [];
-let meuCarrinho = [];
+]
+let meusFavoritos = []
+let meuCarrinho = []
 
 function esconderTodo() {
     const tela = document.querySelectorAll(".tela");
@@ -63,93 +62,116 @@ function esconderTodo() {
 }
 
 function voltarAoInicio() {
-    esconderTodo();
-    document.getElementById("principal").classList.add("ativa");
+    esconderTodo()
+    document.getElementById("principal").classList.add("ativa")
 
-    document.getElementById('lista-produtos').innerHTML = '';
+    document.getElementById('lista-produtos').innerHTML = ''
     
     for (let i = 0; i < produtos.length; i++) {
-        let marcado = "";
+        let marcado = ""
         if (meusFavoritos.includes(produtos[i].id)) {
-            marcado = "checked";
+            marcado = "checked"
         }
 
-        let html = '<div class="produto-item">';
-        html += '<input type="checkbox" ' + marcado + ' onclick="mudarFavorito(' + produtos[i].id + ', this)"> Favorito <br>';
-        html += '<span>' + produtos[i].nome + ' - R$' + produtos[i].preco + '</span> <br>';
-        html += '<button onclick="adicionarAoCarrinho(' + produtos[i].id + ')">Comprar</button>';
-        html += '</div>';
+        let etiquetaHtml = '<div class="produto-item">'
+        etiquetaHtml += '<input type="checkbox" ' + marcado + ' onclick="mudarFavorito(' + produtos[i].id + ', this)"> Favorito <br>'
+        etiquetaHtml += '<span>' + produtos[i].nome + ' - R$' + produtos[i].preco + '</span> <br>'
+        etiquetaHtml += '<button onclick="adicionarAoCarrinho(' + produtos[i].id + ')">Comprar</button>'
+        etiquetaHtml += '</div>'
 
-        document.getElementById('lista-produtos').innerHTML += html;
+        document.getElementById('lista-produtos').innerHTML += etiquetaHtml
     }
 }
 
 function mudarFavorito(id, checkbox) {
     if (checkbox.checked == true) {
-        meusFavoritos.push(id);
+        meusFavoritos.push(id)
     } else {
-        let posicao = meusFavoritos.indexOf(id);
-        meusFavoritos.splice(posicao, 1); 
+        let posicao = meusFavoritos.indexOf(id)
+        meusFavoritos.splice(posicao, 1);
     }
 }
 
 function abrirFavoritos() {
-    esconderTodo();
-    document.getElementById("favoritos").classList.add("ativa");
+    esconderTodo()
+    document.getElementById("favoritos").classList.add("ativa")
     
-    document.getElementById("lista-favoritos").innerHTML = "";
+    document.getElementById("lista-favoritos").innerHTML = ""
     
     for (let i = 0; i < meusFavoritos.length; i++) {
-        let idProd = meusFavoritos[i];
-        let html = '<div class="produto-item">';
-        html += produtos[idProd].nome + ' - R$' + produtos[idProd].preco;
-        html += '</div>';
+        let idProd = meusFavoritos[i]
+        let etiquetaHtml = '<div class="produto-item">'
+        etiquetaHtml += '<input type="checkbox" checked onclick="quitarDeFavoritos(' + idProd + ')"> Favorito <br>'
+        etiquetaHtml+= '<span>' + produtos[idProd].nome + ' - R$' + produtos[idProd].preco + '</span> <br>'
+        etiquetaHtml += '<button onclick="adicionarAoCarrinho(' + idProd + ')">Comprar</button>'
+        etiquetaHtml += produtos[idProd].nome + ' - R$' + produtos[idProd].preco
+        etiquetaHtml += '</div>'
         
-        document.getElementById("lista-favoritos").innerHTML += html;
+        document.getElementById("lista-favoritos").innerHTML += etiquetaHtml
     }
 }
 
+function quitarDeFavoritos(id) {
+    let posicao = meusFavoritos.indexOf(id)
+    if (posicao !== -1) {
+        meusFavoritos.splice(posicao, 1)
+    }
+    abrirFavoritos() 
+}
+
 function adicionarAoCarrinho(id) {
-    let querComprar = confirm("Deseja adicionar " + produtos[id].nome + " ao carrinho?");
+    let querComprar = confirm("Deseja adicionar " + produtos[id].nome + " ao carrinho?")
     
     if (querComprar == true) {
-        meuCarrinho.push(id); 
-        alert("Adicionado com sucesso!");
+        meuCarrinho.push(id)
+        alert("Adicionado com sucesso!")
     }
 }
 
 function abrirTelaCarrinho() {
-    esconderTodo();
-    document.getElementById("carrinho").classList.add("ativa");
+    esconderTodo()
+    document.getElementById("carrinho").classList.add("ativa")
     
-    document.getElementById("listaVendas").innerHTML = "";
+    document.getElementById("listaVendas").innerHTML = ""
     
     for (let i = 0; i < meuCarrinho.length; i++) {
-        let idProd = meuCarrinho[i];
+        let idProd = meuCarrinho[i]
         
   
-        let html = '<div class="produto-item">';
-        html += '<input type="checkbox" checked class="check-compra" value="' + produtos[idProd].preco + '" onclick="calcularTotal()"> ';
-        html += produtos[idProd].nome + ' - R$' + produtos[idProd].preco;
-        html += '</div>';
+        let etiquetaHtml = '<div class="produto-item">'
+        etiquetaHtml += '<input type="checkbox" checked class="check-compra" value="' + produtos[idProd].preco +
+         '" onclick="calcularTotal()"> '
+        etiquetaHtml += '<button onclick="removerDoCarrinho(' + i + ')">Remover</button>'
+        etiquetaHtml += produtos[idProd].nome + ' - R$' + produtos[idProd].preco
+        etiquetaHtml += '</div>'
         
-        document.getElementById("listaVendas").innerHTML += html;
+        document.getElementById("listaVendas").innerHTML += etiquetaHtml
     }
     
-    calcularTotal();
+    calcularTotal()
+}
+
+function removerDoCarrinho(posicao) {
+    let idProd = meuCarrinho[posicao]
+    let querRemover = confirm("Deseja remover " + produtos[idProd].nome + " do carrinho?")
+    
+    if (querRemover == true) {
+        meuCarrinho.splice(posicao, 1)
+        abrirTelaCarrinho()          
+    }
 }
 
 function calcularTotal() {
-    total = 0;
-    let casillas = document.querySelectorAll(".check-compra");
+    total = 0
+    let casillas = document.querySelectorAll(".check-compra")
     
     for (let i = 0; i < casillas.length; i++) {
         if (casillas[i].checked == true) {
-            total = total + parseFloat(casillas[i].value);
+            total = total + parseFloat(casillas[i].value)
         }
     }
     
-    document.getElementById("totalVendido").innerHTML = "Total a pagar: R$" + total.toFixed(2);
+    document.getElementById("totalVendido").innerHTML = "Total a pagar: R$" + total.toFixed(2)
 }
 
-voltarAoInicio();
+voltarAoInicio()
