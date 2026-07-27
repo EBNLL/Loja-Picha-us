@@ -139,8 +139,8 @@ O objetivo do projeto é desenvolver uma loja virtual funcional utilizando tecno
 
 ## 👨‍💻 Desenvolvido por
 
-@ImDr3ek / Clientes
-@EBNLL / Loguin-Cadastro
-@ManinhoGTP / Estoque-Gerenciamento 
+@ImDr3ek / Clientes,
+@EBNLL / Loguin-Cadastro,
+@ManinhoGTP / Estoque-Gerenciamento.
 
 Projeto desenvolvido para fins acadêmicos e de aprendizado.
