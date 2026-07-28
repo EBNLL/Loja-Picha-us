@@ -1,3 +1,59 @@
+/* Titulos */
+h1{
+    text-align: center;
+}
+/*CRUD principal */
+#form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+    background-color: rgb(253, 118, 118);
+}
+#container-inputs{
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 #input-alterarEstoque{
-    width: 60px;
+    width: 70px;
+}
+
+ /* botões*/
+
+#botao{
+    margin: 10px;
+    border-radius: 5px;
+}
+#botao:hover{
+    transition-duration: 0.2s;
+    scale: 1.1;
+}
+
+/* estoque */
+#lista-produtos{
+    display: flex;
+    flex-wrap:wrap;
+}
+.card-produto{
+    display: flex;
+    flex-direction: column;
+    width: 195px;
+    margin: 5px;
+    border-radius: 10px;
+    border-style: solid;
+    padding-left: 10px;
+    background-color: rgb(150, 47, 47)
+}
+.card-produto:hover{
+    transition-duration: 0.2s;
+    scale: 1.05;
+}
+body{
+    background-color: rgb(245, 227, 205)
 }

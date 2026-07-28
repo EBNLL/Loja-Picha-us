@@ -21,10 +21,10 @@ function AdicionarProduto(){
         marca: inputMarca.value,
         preco: Number(inputValor.value),
         estoque: Number(inputEstoque.value),
-        avaliacao: Number(inputAvaliacao.value),
+        rating: Number(inputAvaliacao.value),
         id: Id
     }
-    id ++
+    Id ++
     //adicionar ao array, resetar os inputs e mostrar na página
     estoque.push(novoProduto)
     resetarInputs()
@@ -63,7 +63,7 @@ function procurarProduto(){
             inputMarca.value = estoque[i].marca
             inputValor.value = estoque[i].preco
             inputEstoque.value = estoque[i].estoque
-            inputAvaliacao.value = estoque[i].avaliacao
+            inputAvaliacao.value = estoque[i].rating
             inputId.value = estoque[i].id
         }
     }
@@ -81,7 +81,7 @@ function atualizarProduto(){
             estoque[i].marca = inputMarca.value
             estoque[i].preco = inputValor.value
             estoque[i].estoque = inputEstoque.value
-            estoque[i].avaliacao = inputAvaliacao.value
+            estoque[i].rating = inputAvaliacao.value
         }
     }
 
@@ -116,6 +116,7 @@ function resetarInputs(){
     inputValor.value = ""
     inputEstoque.value = ""
     inputAvaliacao.value = ""
+    inputId.value = ""
 
     inputNome.focus()
 }
@@ -130,11 +131,11 @@ function mostrarEstoque(){
     for(let i = 0; i < estoque.length; i++) {
         listaDeProdutos.innerHTML += `
         <div class = "card-produto">
-            <h3>${i} - ${estoque[i].nome}</h3>
+            <h3>Nome - ${estoque[i].nome}</h3>
             <p>marca: ${estoque[i].marca}</p>
-            <p>Valor: ${estoque[i].preco}</p>
+            <p>Valor: ${estoque[i].preco} R$</p>
             <p>Estoque: ${estoque[i].estoque}</p>
-            <p>Avaliacao: ${estoque[i].avaliacao}</p>
+            <p>Avaliacao: ${estoque[i].rating}</p>
             <p>ID: ${estoque[i].id}</p>
         </div>
         `
@@ -143,7 +144,47 @@ function mostrarEstoque(){
 function consoleLog(){
     console.log(estoque)
 }
-
+function testar(){
+    carregarDados()
+    estoque = [
+        {
+        nome: "Mouse",
+        marca: "razer",
+        preco: 120,
+        estoque: 7,
+        rating: 4.8,
+        id: Id
+        },
+        {
+        nome: "placa de video RTX 3060",
+        marca: "NVIDIA",
+        preco: 1563,
+        estoque: 12,
+        rating: 4.9,
+        id: Id + 1
+        },
+        {
+        nome: "Monitor",
+        marca: "Samgsung",
+        preco: 724,
+        estoque: 0,
+        rating: 4.2,
+        id: Id + 2
+        },
+        {
+        nome: "Processador Ryzen 5 5500",
+        marca: "AMD",
+        preco: 630,
+        estoque: 0,
+        rating: 4.5,
+        id: Id + 3
+        }
+    ]
+    salvarDados()
+    mostrarEstoque()
+    resetarInputs()
+    consoleLog()
+}
 
 //Local storage
 function salvarDados(){
@@ -153,3 +194,53 @@ function carregarDados(){
     estoque = JSON.parse(localStorage.getItem('estoque')) || []
 }
 
+//Filtro
+
+function filtrar(){
+    let filtro = document.getElementById("filtro")
+    let listaDeProdutos = document.getElementById("lista-produtos")
+
+    //Tirar estoque da tela
+    listaDeProdutos.innerHTML = ""
+    
+    //Filtrar por estoque maior que 0
+    if(filtro.value == "filtro-estoque"){
+        for(let i = 0; i < estoque.length; i++){
+            if(estoque[i].estoque > 0){
+                listaDeProdutos.innerHTML += `
+                    <div class = "card-produto">
+                    <h3>Nome - ${estoque[i].nome}</h3>
+                    <p>marca: ${estoque[i].marca}</p>
+                    <p>Valor: ${estoque[i].preco} R$</p>
+                    <p>Estoque: ${estoque[i].estoque}</p>
+                    <p>Avaliacao: ${estoque[i].rating}</p>
+                    <p>ID: ${estoque[i].id}</p>
+                    </div>
+                    `
+            }
+        }
+    }
+
+    //Filtrar por avaliação
+    if(filtro.value == "filtro-avaliacao"){
+        for(let i = 0; i < estoque.length; i++){
+            if(estoque[i].rating >= 4){
+                listaDeProdutos.innerHTML += `
+                    <div class = "card-produto">
+                    <h3>Nome - ${estoque[i].nome}</h3>
+                    <p>marca: ${estoque[i].marca}</p>
+                    <p>Valor: ${estoque[i].preco} R$</p>
+                    <p>Estoque: ${estoque[i].estoque}</p>
+                    <p>Avaliacao: ${estoque[i].rating}</p>
+                    <p>ID: ${estoque[i].id}</p>
+                    </div>
+                    `
+            }
+        }
+    }
+
+    //Sem filtro
+    if(filtro.value == "filtro-nada"){
+        mostrarEstoque()
+    }
+}

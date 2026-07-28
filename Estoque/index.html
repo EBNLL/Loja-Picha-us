@@ -10,46 +10,61 @@
     <h1 id="titulo">Gerenciar itens</h1>
 
     <!-- Inputs e seus labels -->
-    <div id="container-inputs">
-        <label>Nome</label>
-        <input type="text" id="input-nome">
-    </div>
-    <div id="container-inputs">
-        <label>Marca</label>
-        <input type="text" id="input-marca">
-    </div>
-    <div id="container-inputs">
-        <label>valor</label>
-        <input type="number" id="input-valor">
-    </div>
-    <div id="container-inputs">
-        <label>Estoque</label>
-        <input type="number" id="input-estoque">
-    </div>
-    <div id="container-inputs">
-        <label>Avaliação</label>
-        <input type="number" id="input-avaliacao">
-    </div>
-    <div id="container-inputs">
-        <label>ID</label>
-        <input type="number" id="input-id">
-    </div>
-
+    <div id="form">
+        <div id="container-inputs">
+            <label>Nome</label>
+            <input type="text" id="input-nome">
+        </div>
+        <div id="container-inputs">
+            <label>Marca</label>
+            <input type="text" id="input-marca">
+        </div>
+        <div id="container-inputs">
+            <label>valor</label>
+            <input type="number" id="input-valor">
+        </div>
+        <div id="container-inputs">
+            <label>Estoque</label>
+            <input type="number" id="input-estoque">
+        </div>
+        <div id="container-inputs">
+            <label>Avaliação</label>
+            <input type="number" id="input-avaliacao">
+        </div>
+        <div id="container-inputs">
+            <label>ID</label>
+            <input type="number" id="input-id">
+        </div>
+    
     <!-- Botões -->
-    <button onclick="AdicionarProduto()">Adicionar produto</button>
-    <button onclick="removerProduto()">Remover produto</button>
-    <button onclick="procurarProduto()">Procurar um produto</button>
-    <button onclick="atualizarProduto()">Atualizar dados do produto</button>
-    <button onclick="alterarEstoque()">Somar estoque</button>
-    <input placeholder="Quantia" type="number" id="input-alterarEstoque">
-
+     <div id="div-botoes">
+         <button onclick="AdicionarProduto()" id="botao">Adicionar produto ➕</button>
+         <button onclick="removerProduto()"id="botao">Remover produto ➖</button>
+         <button onclick="procurarProduto()"id="botao">Procurar um produto 🔎</button>
+         <button onclick="atualizarProduto()"id="botao">Atualizar dados do produto 💾</button>
+         <button onclick="testar()"id="botao">Testar🕷️</button>
+         <button onclick="alterarEstoque()"id="botao">Somar estoque +</button>
+         <input placeholder="Quantia" type="number" id="input-alterarEstoque">
+     </div>
+    </div>   
 
     <hr>
 
+
+
     <h1>Estoque</h1>
 
+    <p>Filtrar por:</p>
+    <select name="filtro" id="filtro" onchange="filtrar()">
+        <option value="filtro-nada">Sem filtro</option>
+        <option value="filtro-estoque">estoque</option>
+        <option value="filtro-avaliacao">rating maior que 4</option>
+    </select>
+    
     <div id="lista-produtos">
     </div>
+
+    
 
     <script src="script.js"></script>
 </body>
