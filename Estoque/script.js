@@ -5,10 +5,12 @@ let inputAvaliacao = document.getElementById("input-avaliacao"), inputId = docum
 
 let estoque = []
 
-
+carregarDados()
 
 //Funções principais (CRUD)
 function AdicionarProduto(){
+
+    carregarDados()
 
     //Produto a ser adicionado
     let novoProduto = {
@@ -25,8 +27,10 @@ function AdicionarProduto(){
     resetarInputs()
     mostrarEstoque()
     consoleLog()
+    salvarDados()
 }
 function removerProduto(){
+    carregarDados()
     //Produto a ser removido
     let produto = Number(inputId.value)
 
@@ -42,8 +46,10 @@ function removerProduto(){
     mostrarEstoque()
     resetarInputs()
     consoleLog()
+    salvarDados()
 }   
 function procurarProduto(){
+    carregarDados()
     //Produto a ser encontrado
     let produto = inputNome.value
 
@@ -60,6 +66,7 @@ function procurarProduto(){
     }
 }
 function atualizarProduto(){
+    carregarDados()
     //Produto a ser atualizado
     let produto = Number(inputId.value)
 
@@ -78,8 +85,10 @@ function atualizarProduto(){
     
     resetarInputs()
     mostrarEstoque()
+    salvarDados()
 }
 function alterarEstoque(){
+    carregarDados()
     //Quantia a ser alterada e produto a ser alterado
     let quantia = document.getElementById("input-alterarEstoque")
     let produto = inputId.value
@@ -94,6 +103,7 @@ function alterarEstoque(){
 
     mostrarEstoque()
     procurarProduto()
+    salvarDados()
 }
 
 //Funções user friendly
@@ -139,3 +149,4 @@ function salvarDados(){
 function carregarDados(){
     estoque = JSON.parse(localStorage.getItem('estoque')) || []
 }
+
