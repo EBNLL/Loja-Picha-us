@@ -28,6 +28,7 @@ function cadastrarUsuarios() {
         if (novoUsuario.nomeDoUsuario != "" && novoUsuario.sobrenomeDoUsuario != "" && novoUsuario.email != "" && novoUsuario.senha != "" && novoUsuario.dataDeNascimento != "" && novoUsuario.aceitouOsTermos == true) {
             document.getElementById("aviso-cadastro").innerHTML = ""
             usuarios.push(novoUsuario)
+            telaLogin()
         }
         else {
             document.getElementById("aviso-cadastro").innerHTML = "Teste"
@@ -36,7 +37,6 @@ function cadastrarUsuarios() {
     else {
         document.getElementById("aviso-cadastro").innerHTML = "Senha errada"
     }
-    telaLogin()
 
     console.log(usuarios)
     console.log(novoUsuario.aceitouOsTermos)
@@ -48,21 +48,10 @@ function entrarNoSite() {
 
     for (i = 0; i < usuarios.length; i++) {
         if (loginEmail == usuarios[i].email && loginsenha == usuarios[i].senha) {
-            window.location = "http://127.0.0.1:5500/Loja-Picha-us/clientes/indexC.html"
+            window.location = "http://127.0.0.1:5500/Loja-Picha-us/principal/index.html"
         }
         else {
             document.getElementById("aviso-login").innerHTML = "Teste"
         }
     }
-}
-
-
-
-
-//Local storage
-function salvarDados(){
-    localStorage.setItem('estoque', JSON.stringify(estoque))
-}
-function carregarDados(){
-    estoque = JSON.parse(localStorage.getItem('estoque')) || []
 }
