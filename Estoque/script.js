@@ -148,35 +148,35 @@ function testar(){
     carregarDados()
     estoque = [
         {
-        nome: "Mouse",
+        nome: "mouse",
         marca: "razer",
         preco: 120,
         estoque: 7,
-        rating: 4.8,
+        rating: 3.7,
         id: Id
         },
         {
-        nome: "placa de video RTX 3060",
+        nome: "gpu",
         marca: "NVIDIA",
         preco: 1563,
         estoque: 12,
-        rating: 4.9,
+        rating: 3.4,
         id: Id + 1
         },
         {
-        nome: "Monitor",
+        nome: "monitor",
         marca: "Samgsung",
         preco: 724,
         estoque: 0,
-        rating: 4.2,
+        rating: 4.6,
         id: Id + 2
         },
         {
-        nome: "Processador Ryzen 5 5500",
+        nome: "cpu",
         marca: "AMD",
         preco: 630,
         estoque: 0,
-        rating: 4.5,
+        rating: 4.9,
         id: Id + 3
         }
     ]
