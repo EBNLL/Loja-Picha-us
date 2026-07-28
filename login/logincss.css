@@ -62,6 +62,14 @@ header{
     justify-content: center;
 }
 img {
-    width: 15%;
+    width: 25%;
 
+}
+#btn-foto{
+    background-color: #242424;
+    border: none;
+}
+
+#foto:hover{
+    cursor: pointer;
 }
