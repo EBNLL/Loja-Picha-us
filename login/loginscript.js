@@ -59,3 +59,10 @@ function entrarNoSite() {
 
 
 
+//Local storage
+function salvarDados(){
+    localStorage.setItem('estoque', JSON.stringify(estoque))
+}
+function carregarDados(){
+    estoque = JSON.parse(localStorage.getItem('estoque')) || []
+}

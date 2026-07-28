@@ -6,6 +6,8 @@ let inputAvaliacao = document.getElementById("input-avaliacao"), inputId = docum
 let estoque = []
 
 carregarDados()
+mostrarEstoque()
+salvarDados()
 
 //Funções principais (CRUD)
 function AdicionarProduto(){
