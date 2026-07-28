@@ -4,6 +4,7 @@ let inputValor = document.getElementById("input-valor"), inputEstoque = document
 let inputAvaliacao = document.getElementById("input-avaliacao"), inputId = document.getElementById("input-id")
 
 let estoque = []
+let Id = 0
 
 carregarDados()
 mostrarEstoque()
@@ -18,12 +19,12 @@ function AdicionarProduto(){
     let novoProduto = {
         nome: inputNome.value,
         marca: inputMarca.value,
-        valor: Number(inputValor.value),
+        preco: Number(inputValor.value),
         estoque: Number(inputEstoque.value),
         avaliacao: Number(inputAvaliacao.value),
-        id: Date.now()
+        id: Id
     }
-    
+    id ++
     //adicionar ao array, resetar os inputs e mostrar na página
     estoque.push(novoProduto)
     resetarInputs()
@@ -60,7 +61,7 @@ function procurarProduto(){
         if(produto == estoque[i].nome){
             //Adicionar valores restantes
             inputMarca.value = estoque[i].marca
-            inputValor.value = estoque[i].valor
+            inputValor.value = estoque[i].preco
             inputEstoque.value = estoque[i].estoque
             inputAvaliacao.value = estoque[i].avaliacao
             inputId.value = estoque[i].id
@@ -78,7 +79,7 @@ function atualizarProduto(){
             //Atualizar valores
             estoque[i].nome = inputNome.value
             estoque[i].marca = inputMarca.value
-            estoque[i].valor = inputValor.value
+            estoque[i].preco = inputValor.value
             estoque[i].estoque = inputEstoque.value
             estoque[i].avaliacao = inputAvaliacao.value
         }
@@ -131,7 +132,7 @@ function mostrarEstoque(){
         <div class = "card-produto">
             <h3>${i} - ${estoque[i].nome}</h3>
             <p>marca: ${estoque[i].marca}</p>
-            <p>Valor: ${estoque[i].valor}</p>
+            <p>Valor: ${estoque[i].preco}</p>
             <p>Estoque: ${estoque[i].estoque}</p>
             <p>Avaliacao: ${estoque[i].avaliacao}</p>
             <p>ID: ${estoque[i].id}</p>
