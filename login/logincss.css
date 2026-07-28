@@ -16,18 +16,60 @@
     max-width: 100%;
     align-items: center;
     justify-content: center;
-    padding-top: 15%;
+    padding-top: 5%;
+    gap: 3px;
+    
 }
 .inputs {
     max-width: 500px;
     height: 25px;
+    border-radius: 10px;
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 6px;
+    border: none;
 }
-/* .btn-login{
-    display: flex;
-    background-color: red;
-    border-radius: ;
-    color: rgb(255, 255, 255);
+
+.labels {
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: aliceblue;
+}
+
+
+
+body {
+    background-color: #a51a01;
+}
+ .btn-login{
+    border-radius: 30px;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border: none;
+    padding: 3px;
+    color: #a51a01;
+
+ 
 }
 .btn-login:hover{
     cursor: pointer;
-} */
+} 
+
+header{
+    display: flex;
+    position: sticky;
+    background-color: #242424;
+    justify-content: center;
+}
+img {
+    width: 25%;
+
+}
+#btn-foto{
+    background-color: #242424;
+    border: none;
+}
+
+#foto:hover{
+    cursor: pointer;
+}

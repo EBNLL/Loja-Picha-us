@@ -2,19 +2,31 @@ let adms = []
 let usuarios = []
 
 function mudarTela() {
+
     const telas = document.querySelectorAll(".tela")
     telas.forEach(function (tela) {
         tela.classList.remove("ativa")
     })
+
 }
 
 function telaLogin() {
+
     mudarTela()
     document.getElementById("section-login").classList.add("ativa")
+
+}
+function telaCadastro() {
+
+    mudarTela()
+    document.getElementById("section-cadastro").classList.add("ativa")
+
 }
 
 function cadastrarUsuarios() {
+
     let confirmarSenha = document.getElementById("input-confirmarSenha").value
+
     let novoUsuario = {
         id: Date.now(),
         nomeDoUsuario: document.getElementById("input-nome").value,
@@ -24,45 +36,59 @@ function cadastrarUsuarios() {
         dataDeNascimento: document.getElementById("input-nascimento").value,
         aceitouOsTermos: document.getElementById("termos").checked
     }
+
     if (novoUsuario.senha == confirmarSenha) {
-        if (novoUsuario.nomeDoUsuario != "" && novoUsuario.sobrenomeDoUsuario != "" && novoUsuario.email != "" && novoUsuario.senha != "" && novoUsuario.dataDeNascimento != "" && novoUsuario.aceitouOsTermos == true) {
+
+        if (novoUsuario.nomeDoUsuario != "" && novoUsuario.sobrenomeDoUsuario != "" 
+            && novoUsuario.email != "" && novoUsuario.senha != "" && 
+            novoUsuario.dataDeNascimento != "" && novoUsuario.aceitouOsTermos == true) {
+
             document.getElementById("aviso-cadastro").innerHTML = ""
             usuarios.push(novoUsuario)
+            telaLogin()
+
         }
+
         else {
+
             document.getElementById("aviso-cadastro").innerHTML = "Teste"
+
         }
+
     }
+
     else {
+
         document.getElementById("aviso-cadastro").innerHTML = "Senha errada"
+
     }
-    telaLogin()
 
     console.log(usuarios)
     console.log(novoUsuario.aceitouOsTermos)
 }
 
 function entrarNoSite() {
+
     let loginEmail = document.getElementById("input-login-email").value
     let loginsenha = document.getElementById("input-login-senha").value
 
     for (i = 0; i < usuarios.length; i++) {
+
         if (loginEmail == usuarios[i].email && loginsenha == usuarios[i].senha) {
-            window.location = "http://127.0.0.1:5500/Loja-Picha-us/clientes/indexC.html"
+
+            localStorage.setItem("usuarioLogado", loginEmail)
+            window.location = "http://127.0.0.1:5500/Loja-Picha-us/principal/index.html"
+
         }
+
         else {
+
             document.getElementById("aviso-login").innerHTML = "Teste"
+
         }
     }
 }
 
-
-
-
-//Local storage
-function salvarDados(){
-    localStorage.setItem('estoque', JSON.stringify(estoque))
-}
-function carregarDados(){
-    estoque = JSON.parse(localStorage.getItem('estoque')) || []
+function telaInicial() {
+    window.location = "http://127.0.0.1:5500/Loja-Picha-us/principal/index.html"
 }

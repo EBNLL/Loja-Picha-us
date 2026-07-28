@@ -7,12 +7,30 @@
     <link rel="stylesheet" href="logincss.css">
     <title>Login</title>
 </head>
-<header>
 
-</header>
+    <header>
+        <button onclick="telaInicial()" id="btn-foto"><img src="Gemini_Generated_Image_ttbcifttbcifttbc-removebg-preview.png" id="foto"></button>
+    </header>
+    
+    <body>
 
-<body>
-    <section class="tela ativa" id="section-cadastro">
+    <section class="tela ativa" id="section-login">
+        <div class="pag-cadastros">
+            <div>
+                <input type="text" id="input-login-email" class="inputs" required placeholder="Email*">
+            </div>
+            <div>
+                <input type="password" id="input-login-senha" class="inputs" required placeholder="Senha*">
+            </div>
+            <span id="aviso-login"></span>
+            <div class="btn">
+                <button onclick="entrarNoSite()" class="btn-login" >Login</button>
+                <button onclick="telaCadastro()" class="btn-login">Cadastrar</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tela" id="section-cadastro">
         <div class="pag-cadastros">
             <div class="div-inputs">
                 <input type="text" id="input-nome" class="inputs" required placeholder="Nome*">
@@ -31,7 +49,7 @@
             </div>
             <div class="div-inputs">
                 <label class="labels">Data de nascimento:</label>
-                <input type="date" id="input-nascimento" class="inputs">
+                <input type="date"  class="inputs" id="input-nascimento">
             </div>
             <div class="div-inputs">
                 <label class="labels">Termos:</label>
@@ -41,30 +59,21 @@
                 <span id="aviso-cadastro"></span>
             </div>
             <div class="btn">
-                <button onclick="cadastrarUsuarios()" class="btn-login">cadastrar</button>
-                <button onclick="telaLogin()" class="btn-login">Mudar tela</button>
+                <button onclick="cadastrarUsuarios()" class="btn-login">Cadastrar</button>
+                <button onclick="telaLogin()" class="btn-login">Voltar</button>
             </div>
         </div>
     </section>
 
-    <section class="tela" id="section-login">
-        <div class="pag-cadastros">
-            <div>
-                <label class="labels">Email:</label>
-                <input type="text" id="input-login-email" class="inputs">
-            </div>
-            <div>
-                <label class="labels">Senha:</label>
-                <input type="password" id="input-login-senha" class="inputs">
-            </div>
-            <span id="aviso-login"></span>
-            <div class="btn">
-                <button onclick="entrarNoSite()" class="btn-login">Login</button>
-            </div>
-        </div>
+    <section id="section-cadastroAdm" class="tela">
+
     </section>
 
+    <section id="section-excluir" class="tela">
 
+    </section>
+    
+    
     <script src="loginscript.js"></script>
 </body>
 
