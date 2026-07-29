@@ -17,28 +17,35 @@ function telaInicial() {
 }
 
 function telaLogin() {
-
+    carregarDados()
     mudarTela()
     document.getElementById("section-login").classList.add("ativa")
 
 }
 
-function telaCadastro() {
+function telaEditar() {
+    carregarDados()
+    mudarTela()
+    document.getElementById("section-editar").classList.add("ativa")
 
+}
+
+function telaCadastro() {
+    carregarDados()
     mudarTela()
     document.getElementById("section-cadastro").classList.add("ativa")
 
 }
 
 function telaExcluir() {
-
+    carregarDados()
     mudarTela()
     document.getElementById("section-excluir").classList.add("ativa")
 
 }
 
 function telaCadastroAdm() {
-
+    carregarDados()
     let senha = prompt("Qual a senha?")
 
     if (senha == "adm123") {
@@ -50,9 +57,12 @@ function telaCadastroAdm() {
 
     else {
 
-        document.getElementById("aviso-login")
+        document.getElementById("aviso-login") = "Senha errada"
 
     }
+
+
+
 }
 
 function cadastrarAdm() {
@@ -82,7 +92,7 @@ function cadastrarAdm() {
 
         else {
 
-            document.getElementById("aviso-cadastroAdm").innerHTML = "Teste"
+            document.getElementById("aviso-cadastroAdm").innerHTML = "Preencha seus dados"
 
         }
 
@@ -95,8 +105,8 @@ function cadastrarAdm() {
     }
 
     salvar()
+    limparFormulario()
 
-    console.log(adms)
 }
 
 function cadastrarUsuarios() {
@@ -130,7 +140,7 @@ function cadastrarUsuarios() {
 
         else {
 
-            document.getElementById("aviso-cadastro").innerHTML = "Teste"
+            document.getElementById("aviso-cadastro").innerHTML = "Preencha seus dados"
 
         }
 
@@ -143,9 +153,8 @@ function cadastrarUsuarios() {
     }
 
     salvar()
+    limparFormulario()
 
-    console.log(usuarios)
-    console.log(novoUsuario.aceitouOsTermos)
 }
 
 function entrarNoSite() {
@@ -166,7 +175,7 @@ function entrarNoSite() {
 
         else {
 
-            document.getElementById("aviso-login").innerHTML = "Teste"
+            document.getElementById("aviso-login").innerHTML = "Preencha seus dados"
 
         }
     }
@@ -180,13 +189,13 @@ function entrarNoSite() {
 
         else {
 
-            document.getElementById("aviso-login").innerHTML = "Teste"
+            document.getElementById("aviso-login").innerHTML = "Preencha seus dados"
 
         }
     }
 
     salvar()
-
+    limparFormulario()
 }
 
 function excluirConta() {
@@ -207,7 +216,7 @@ function excluirConta() {
 
         else {
 
-            document.getElementById("aviso-login").innerHTML = "Teste"
+            document.getElementById("aviso-excluir").innerHTML = "Preencha seus dados"
 
         }
     }
@@ -215,25 +224,27 @@ function excluirConta() {
 
         if (nome == adms[i].nomeAdm && email == adms[i].emailAdm && senha == adms[i].senhaAdm) {
 
-            usuarios.splice(i, 1)
+            adms.splice(i, 1)
 
         }
 
         else {
 
-            document.getElementById("aviso-login").innerHTML = "Teste"
+            document.getElementById("aviso-excluir").innerHTML = "Preencha seus dados"
 
         }
     }
 
     salvar()
-
+    limparFormulario()
 }
 
 function salvar() {
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios))
     localStorage.setItem("adms", JSON.stringify(adms))
+    console.log(adms)
+    console.log(usuarios)
 
 }
 
@@ -241,35 +252,37 @@ function carregarDados() {
 
     usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
     adms = JSON.parse(localStorage.getItem("adms")) || []
-
+    console.log(adms)
+    console.log(usuarios)
 }
 
 function testar() {
 
     adms = [
         {
-            nome: "Ana Silva",
-            email: "ana.silva@email.com",
-            senha: "senhaSegura123"
+            nomeAdm: "Ana Silva",
+            emailAdm: "ana.silva@email.com",
+            senhaAdm: "senhaSegura123"
         },
         {
-            nome: "Carlos Souza",
-            email: "carlos.souza@email.com",
-            senha: "senhaForte456!"
+            nomeAdm: "Carlos Souza",
+            emailAdm: "carlos.souza@email.com",
+            senhaAdm: "senhaForte456!"
         },
         {
-            nome: "Mariana Costa",
-            email: "mariana.costa@email.com",
-            senha: "abc123Senha*"
+            nomeAdm: "Mariana Costa",
+            emailAdm: "mariana.costa@email.com",
+            senhaAdm: "abc123Senha*"
         },
         {
-            nome: "João Pedro",
-            email: "joao.pedro@email.com",
-            senha: "suporte2026#"
+            nomeAdm: "João Pedro",
+            emailAdm: "joao.pedro@email.com",
+            senhaAdm: "suporte2026#"
         },
         {
-            nome: "Beatriz Lima", email: "beatriz.lima@email.com",
-            senha: "senhaAdmin789"
+            nomeAdm: "Beatriz Lima",
+            emailAdm: "beatriz.lima@email.com",
+            senhaAdm: "senhaAdmin789"
         }
     ]
 
@@ -307,5 +320,85 @@ function testar() {
             dataDeNascimento: "1988-02-20"
         }
     ];
+    
+    salvar()
+    limparFormulario()
+}
+
+function limparFormulario() {
+
+    document.getElementById("input-nome-excluir").value = ""
+    document.getElementById("input-login-email-excluir").value = ""
+    document.getElementById("input-login-senha-excluir").value = ""
+    document.getElementById("input-login-email").value = ""
+    document.getElementById("input-login-senha").value = ""
+    document.getElementById("input-confirmarSenha").value = ""
+    document.getElementById("input-nome").value = ""
+    document.getElementById("input-sobrenome").value = ""
+    document.getElementById("input-email").value = ""
+    document.getElementById("input-senha").value = ""
+    document.getElementById("input-nascimento").value = ""
+    document.getElementById("input-nomeAdm").value = ""
+    document.getElementById("input-emailAdm").value = ""
+    document.getElementById("input-senhaAdm").value = ""
+
+}
+
+function puxarDados() {
+    carregarDados()
+
+    let buscar = document.getElementById("input-nome-editar").value
+
+    for (i = 0; i < usuarios.length; i++) {
+
+        if (buscar == usuarios[i].nome) {
+            document.getElementById("input-nome-editar").value = usuarios[i].nome
+            document.getElementById("input-sobrenome-editar").value = usuarios[i].sobrenome
+            document.getElementById("input-email-editar").value = usuarios[i].email
+            document.getElementById("input-senha-editar").value = usuarios[i].senha
+        }
+
+    }
+    for (i = 0; i < adms.length; i++) {
+
+        if (buscar == adms[i].nomeAdm) {
+            document.getElementById("input-nome-editar").value = adms[i].nomeAdm
+            document.getElementById("input-email-editar").value = adms[i].emailAdm
+            document.getElementById("input-senha-editar").value = adms[i].senhaAdm
+        }
+
+    }
+    
+}
+
+function editar(){
+
+    carregarDados()
+
+    let alterar = document.getElementById("input-nome-editar").value
+    let alterar2 = document.getElementById("input-sobrenome-editar").value
+    let alterar3 = document.getElementById("input-email-editar").value
+    let alterar4 = document.getElementById("input-senha-editar").value
+
+    for (i = 0; i < usuarios.length; i++) {
+    
+        if (alterar == usuarios[i].nome) {
+            usuarios[i].nome = alterar
+            usuarios[i].sobrenome = alterar2
+            usuarios[i].email = alterar3
+            usuarios[i].senha = alterar4
+        }
+    
+    }
+    for (i = 0; i < adms.length; i++) {
+    
+        if (alterar == adms[i].nomeAdm) {
+            adms[i].nomeAdm = alterar
+            adms[i].emailAdm = alterar3
+            adms[i].senhaAdm = alterar4
+        }
+    
+    }
+
     salvar()
 }
