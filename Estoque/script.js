@@ -180,6 +180,7 @@ function testar(){
         id: Id + 3
         }
     ]
+    Id += 4
     salvarDados()
     mostrarEstoque()
     resetarInputs()
@@ -194,7 +195,7 @@ function carregarDados(){
     estoque = JSON.parse(localStorage.getItem('estoque')) || []
 }
 
-//Filtro
+//Filtros
 
 function filtrar(){
     let filtro = document.getElementById("filtro")
@@ -244,3 +245,35 @@ function filtrar(){
         mostrarEstoque()
     }
 }
+
+//Event listeners
+
+inputNome.addEventListener("keyup", function(e){
+    if(e.key == "Enter"){
+        inputMarca.focus()
+    }
+})
+
+inputMarca.addEventListener("keyup", function(e){
+    if(e.key == "Enter"){
+        inputValor.focus()
+    }
+})
+
+inputValor.addEventListener("keyup", function(e){
+    if(e.key == "Enter"){
+        inputEstoque.focus()
+    }
+})
+
+inputEstoque.addEventListener("keyup", function(e){
+    if(e.key == "Enter"){
+        inputAvaliacao.focus()
+    }
+})
+
+inputAvaliacao.addEventListener("keyup", function(e){
+    if(e.key == "Enter"){
+        AdicionarProduto()
+    }
+})

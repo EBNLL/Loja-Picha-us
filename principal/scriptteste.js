@@ -50,12 +50,16 @@ let produtos = [
     { id: 47, nome: "Purificador de Água", preco: 600.00, estoque: 35, rating: 4.7 },
     { id: 48, nome: "Fogão 4 Bocas", preco: 800.00, estoque: 40, rating: 4.6 },
     { id: 49, nome: "Filtro de Linha", preco: 40.00, estoque: 200, rating: 4.8 }
-]   
-    carregarDados()
-    salvarDados()
+]
+carregarDados()
+salvarDados()
 
 let meusFavoritos = []
 let meuCarrinho = []
+
+function logIn(){
+     window.location.href = "login/login.html"
+}
 
 function esconderTodo() {
     const tela = document.querySelectorAll(".tela");
@@ -69,7 +73,7 @@ function voltarAoInicio() {
     document.getElementById("principal").classList.add("ativa")
 
     document.getElementById('lista-produtos').innerHTML = ''
-    
+
     for (let i = 0; i < produtos.length; i++) {
         let marcado = ""
         if (meusFavoritos.includes(produtos[i].id)) {
@@ -98,18 +102,18 @@ function mudarFavorito(id, checkbox) {
 function abrirFavoritos() {
     esconderTodo()
     document.getElementById("favoritos").classList.add("ativa")
-    
+
     document.getElementById("lista-favoritos").innerHTML = ""
-    
+
     for (let i = 0; i < meusFavoritos.length; i++) {
         let idProd = meusFavoritos[i]
         let etiquetaHtml = '<div class="produto-item">'
         etiquetaHtml += '<input type="checkbox" checked onclick="quitarDeFavoritos(' + idProd + ')"> Favorito <br>'
-        etiquetaHtml+= '<span>' + produtos[idProd].nome + ' - R$' + produtos[idProd].preco + '</span> <br>'
+        etiquetaHtml += '<span>' + produtos[idProd].nome + ' - R$' + produtos[idProd].preco + '</span> <br>'
         etiquetaHtml += '<button onclick="adicionarAoCarrinho(' + idProd + ')">Comprar</button>'
         etiquetaHtml += produtos[idProd].nome + ' - R$' + produtos[idProd].preco
         etiquetaHtml += '</div>'
-        
+
         document.getElementById("lista-favoritos").innerHTML += etiquetaHtml
     }
 }
@@ -119,12 +123,12 @@ function quitarDeFavoritos(id) {
     if (posicao !== -1) {
         meusFavoritos.splice(posicao, 1)
     }
-    abrirFavoritos() 
+    abrirFavoritos()
 }
 
 function adicionarAoCarrinho(id) {
     let querComprar = confirm("Deseja adicionar " + produtos[id].nome + " ao carrinho?")
-    
+
     if (querComprar == true) {
         meuCarrinho.push(id)
         alert("Adicionado com sucesso!")
@@ -134,66 +138,122 @@ function adicionarAoCarrinho(id) {
 function abrirTelaCarrinho() {
     esconderTodo()
     document.getElementById("carrinho").classList.add("ativa")
-    
+
     document.getElementById("listaVendas").innerHTML = ""
-    
+
     for (let i = 0; i < meuCarrinho.length; i++) {
         let idProd = meuCarrinho[i]
-        
-  
+
+
         let etiquetaHtml = '<div class="produto-item">'
         etiquetaHtml += '<input type="checkbox" checked class="check-compra" value="' + produtos[idProd].preco +
-         '" onclick="calcularTotal()"> '
+            '" onclick="calcularTotal()"> '
         etiquetaHtml += '<button onclick="removerDoCarrinho(' + i + ')">Remover</button>'
         etiquetaHtml += produtos[idProd].nome + ' - R$' + produtos[idProd].preco
         etiquetaHtml += '</div>'
-        
+
         document.getElementById("listaVendas").innerHTML += etiquetaHtml
     }
-    
+
     calcularTotal()
 }
 
 function removerDoCarrinho(posicao) {
     let idProd = meuCarrinho[posicao]
     let querRemover = confirm("Deseja remover " + produtos[idProd].nome + " do carrinho?")
-    
+
     if (querRemover == true) {
         meuCarrinho.splice(posicao, 1)
-        abrirTelaCarrinho()          
+        abrirTelaCarrinho()
     }
 }
 
 function calcularTotal() {
     total = 0
     let casillas = document.querySelectorAll(".check-compra")
-    
+
     for (let i = 0; i < casillas.length; i++) {
         if (casillas[i].checked == true) {
             total = total + parseFloat(casillas[i].value)
         }
     }
-    
+
     document.getElementById("totalVendido").innerHTML = "Total a pagar: R$" + total.toFixed(2)
 }
- 
 
-function efetuarPagamento(){
+
+function efetuarPagamento() {
     let user = localStorage.getItem("usuarioLogado")
-    console.log(user);
-    
-    // if()
+    console.log(user)
 
+    if (user === null || user === "") {
+        window.location.href = "login/login.html"
+        return
+    }
 
+    if (meuCarrinho.length === 0) {
+        alert("Seu carrinho está vazio!")
+        return
+    }
 
+    let checkboxes = document.querySelectorAll(".check-compra")
+    let algumSelecionado = false
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked === true) {
+            algumSelecionado = true
+            break
+        }
+    }
+
+    if (algumSelecionado === false) {
+        alert("Selecione pelo menos um produto para efetuar o pagamento!")
+        return
+    }
+
+    let confirmacao = confirm("Deseja realmente efetuar o pagamento?")
+
+    if (confirmacao === true) {
+        let novoCarrinho = []
+
+        for (let i = 0; i < meuCarrinho.length; i++) {
+            if (checkboxes[i] && checkboxes[i].checked === true) {
+                let idProd = meuCarrinho[i]
+
+                for (let j = 0; j < produtos.length; j++) {
+                    if (produtos[j].id === idProd) {
+                        if (produtos[j].estoque > 0) {
+                            produtos[j].estoque--
+                        }
+                        break
+                    }
+                }
+            } else {
+                novoCarrinho.push(meuCarrinho[i])
+            }
+        }
+
+        salvarDados()
+        meuCarrinho = novoCarrinho
+        abrirTelaCarrinho()
+        alert("Pagamento efetuado com sucesso!")
+
+    } else {
+        alert("Pagamento cancelado.")
+    }
 }
 
-voltarAoInicio()
+    voltarAoInicio()
 
-//Local storage
-function salvarDados(){
-    localStorage.setItem('estoque', JSON.stringify(produtos))
-}
-function carregarDados(){
-    produtos = JSON.parse(localStorage.getItem('estoque')) || []
-}
+    //Local storage
+    function salvarDados() {
+        localStorage.setItem('estoque', JSON.stringify(produtos))
+    }
+    function carregarDados() {
+        let dadosGuardados = localStorage.getItem('estoque') || []
+        if (dadosGuardados !== null) {
+            produtos = JSON.parse(dadosGuardados)
+        } else {
+            salvarDados()
+        }
+    }
