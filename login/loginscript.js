@@ -10,38 +10,127 @@ function mudarTela() {
 
 }
 
-function telaLogin() {
+function telaInicial() {
 
+    window.location = "http://127.0.0.1:5500/Loja-Picha-us/principal/index.html"
+
+}
+
+function telaLogin() {
+    carregarDados()
     mudarTela()
     document.getElementById("section-login").classList.add("ativa")
 
 }
-function telaCadastro() {
 
+function telaEditar() {
+    carregarDados()
+    mudarTela()
+    document.getElementById("section-editar").classList.add("ativa")
+
+}
+
+function telaCadastro() {
+    carregarDados()
     mudarTela()
     document.getElementById("section-cadastro").classList.add("ativa")
 
 }
 
+function telaExcluir() {
+    carregarDados()
+    mudarTela()
+    document.getElementById("section-excluir").classList.add("ativa")
+
+}
+
+function telaCadastroAdm() {
+    carregarDados()
+    let senha = prompt("Qual a senha?")
+
+    if (senha == "adm123") {
+
+        mudarTela()
+        document.getElementById("section-cadastroAdm").classList.add("ativa")
+
+    }
+
+    else {
+
+        document.getElementById("aviso-login") = "Senha errada"
+
+    }
+
+
+
+}
+
+function cadastrarAdm() {
+
+    carregarDados()
+
+    let confirmarSenha = document.getElementById("input-confirmarSenhaAdm").value
+
+    let novoAdm = {
+
+        id: Date.now(),
+        nomeAdm: document.getElementById("input-nomeAdm").value,
+        emailAdm: document.getElementById("input-emailAdm").value,
+        senhaAdm: document.getElementById("input-senhaAdm").value
+
+    }
+
+    if (novoAdm.senhaAdm == confirmarSenha) {
+
+        if (novoAdm.nomeAdm != "" && novoAdm.emailAdm != "" && novoAdm.senhaAdm != "") {
+
+            document.getElementById("aviso-cadastroAdm").innerHTML = ""
+            adms.push(novoAdm)
+            telaLogin()
+
+        }
+
+        else {
+
+            document.getElementById("aviso-cadastroAdm").innerHTML = "Preencha seus dados"
+
+        }
+
+    }
+
+    else {
+
+        document.getElementById("aviso-cadastroAdm").innerHTML = "Senha errada"
+
+    }
+
+    salvar()
+    limparFormulario()
+
+}
+
 function cadastrarUsuarios() {
+
+    carregarDados()
 
     let confirmarSenha = document.getElementById("input-confirmarSenha").value
 
     let novoUsuario = {
+
         id: Date.now(),
         nomeDoUsuario: document.getElementById("input-nome").value,
         sobrenomeDoUsuario: document.getElementById("input-sobrenome").value,
         email: document.getElementById("input-email").value,
         senha: document.getElementById("input-senha").value,
         dataDeNascimento: document.getElementById("input-nascimento").value,
-        aceitouOsTermos: document.getElementById("termos").checked
+
     }
 
     if (novoUsuario.senha == confirmarSenha) {
 
-        if (novoUsuario.nomeDoUsuario != "" && novoUsuario.sobrenomeDoUsuario != "" 
-            && novoUsuario.email != "" && novoUsuario.senha != "" && 
-            novoUsuario.dataDeNascimento != "" && novoUsuario.aceitouOsTermos == true) {
+        if (novoUsuario.nomeDoUsuario != "" && novoUsuario.sobrenomeDoUsuario != ""
+            && novoUsuario.email != "" && novoUsuario.senha != "" &&
+            novoUsuario.dataDeNascimento != "") {
 
             document.getElementById("aviso-cadastro").innerHTML = ""
             usuarios.push(novoUsuario)
@@ -51,7 +140,7 @@ function cadastrarUsuarios() {
 
         else {
 
-            document.getElementById("aviso-cadastro").innerHTML = "Teste"
+            document.getElementById("aviso-cadastro").innerHTML = "Preencha seus dados"
 
         }
 
@@ -63,11 +152,14 @@ function cadastrarUsuarios() {
 
     }
 
-    console.log(usuarios)
-    console.log(novoUsuario.aceitouOsTermos)
+    salvar()
+    limparFormulario()
+
 }
 
 function entrarNoSite() {
+
+    carregarDados()
 
     let loginEmail = document.getElementById("input-login-email").value
     let loginsenha = document.getElementById("input-login-senha").value
@@ -83,12 +175,230 @@ function entrarNoSite() {
 
         else {
 
-            document.getElementById("aviso-login").innerHTML = "Teste"
+            document.getElementById("aviso-login").innerHTML = "Preencha seus dados"
 
         }
     }
+    for (i = 0; i < adms.length; i++) {
+
+        if (loginEmail == adms[i].emailAdm && loginsenha == adms[i].senhaAdm) {
+
+            window.location = "http://127.0.0.1:5500/Loja-Picha-us/Estoque/index.html"
+
+        }
+
+        else {
+
+            document.getElementById("aviso-login").innerHTML = "Preencha seus dados"
+
+        }
+    }
+
+    salvar()
+    limparFormulario()
 }
 
-function telaInicial() {
-    window.location = "http://127.0.0.1:5500/Loja-Picha-us/principal/index.html"
+function excluirConta() {
+
+    carregarDados()
+
+    let nome = document.getElementById("input-nome-excluir").value
+    let email = document.getElementById("input-login-email-excluir").value
+    let senha = document.getElementById("input-login-senha-excluir").value
+
+    for (i = 0; i < usuarios.length; i++) {
+
+        if (nome == usuarios[i].nome && email == usuarios[i].email && email == usuarios[i].senha) {
+
+            usuarios.splice(i, 1)
+
+        }
+
+        else {
+
+            document.getElementById("aviso-excluir").innerHTML = "Preencha seus dados"
+
+        }
+    }
+    for (i = 0; i < adms.length; i++) {
+
+        if (nome == adms[i].nomeAdm && email == adms[i].emailAdm && senha == adms[i].senhaAdm) {
+
+            adms.splice(i, 1)
+
+        }
+
+        else {
+
+            document.getElementById("aviso-excluir").innerHTML = "Preencha seus dados"
+
+        }
+    }
+
+    salvar()
+    limparFormulario()
+}
+
+function salvar() {
+
+    localStorage.setItem("usuarios", JSON.stringify(usuarios))
+    localStorage.setItem("adms", JSON.stringify(adms))
+    console.log(adms)
+    console.log(usuarios)
+
+}
+
+function carregarDados() {
+
+    usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
+    adms = JSON.parse(localStorage.getItem("adms")) || []
+    console.log(adms)
+    console.log(usuarios)
+}
+
+function testar() {
+
+    adms = [
+        {
+            nomeAdm: "Ana Silva",
+            emailAdm: "ana.silva@email.com",
+            senhaAdm: "senhaSegura123"
+        },
+        {
+            nomeAdm: "Carlos Souza",
+            emailAdm: "carlos.souza@email.com",
+            senhaAdm: "senhaForte456!"
+        },
+        {
+            nomeAdm: "Mariana Costa",
+            emailAdm: "mariana.costa@email.com",
+            senhaAdm: "abc123Senha*"
+        },
+        {
+            nomeAdm: "João Pedro",
+            emailAdm: "joao.pedro@email.com",
+            senhaAdm: "suporte2026#"
+        },
+        {
+            nomeAdm: "Beatriz Lima",
+            emailAdm: "beatriz.lima@email.com",
+            senhaAdm: "senhaAdmin789"
+        }
+    ]
+
+    usuarios = [
+        {
+            nome: "Lucas", sobrenome: "Mendes",
+            email: "lucas.mendes@email.com",
+            senha: "userPass123",
+            dataDeNascimento: "1995-04-12"
+        },
+        {
+            nome: "Juliana", sobrenome: "Rocha",
+            email: "juliana.rocha@email.com",
+            senha: "senhaUsuario456",
+            dataDeNascimento: "1998-09-25"
+        },
+        {
+            nome: "Gabriel", sobrenome: "Martins",
+            email: "gabriel.martins@email.com",
+            senha: "abcUser789*",
+            dataDeNascimento: "1990-12-03"
+        },
+        {
+            nome: "Camila",
+            sobrenome: "Duarte",
+            email: "camila.duarte@email.com",
+            senha: "cliente2026#",
+            dataDeNascimento: "2001-07-15"
+        },
+        {
+            nome: "Rafael",
+            sobrenome: "Lindemman",
+            email: "rafael.lindemman@email.com",
+            senha: "minhaSenha321",
+            dataDeNascimento: "1988-02-20"
+        }
+    ];
+    
+    salvar()
+    limparFormulario()
+}
+
+function limparFormulario() {
+
+    document.getElementById("input-nome-excluir").value = ""
+    document.getElementById("input-login-email-excluir").value = ""
+    document.getElementById("input-login-senha-excluir").value = ""
+    document.getElementById("input-login-email").value = ""
+    document.getElementById("input-login-senha").value = ""
+    document.getElementById("input-confirmarSenha").value = ""
+    document.getElementById("input-nome").value = ""
+    document.getElementById("input-sobrenome").value = ""
+    document.getElementById("input-email").value = ""
+    document.getElementById("input-senha").value = ""
+    document.getElementById("input-nascimento").value = ""
+    document.getElementById("input-nomeAdm").value = ""
+    document.getElementById("input-emailAdm").value = ""
+    document.getElementById("input-senhaAdm").value = ""
+
+}
+
+function puxarDados() {
+    carregarDados()
+
+    let buscar = document.getElementById("input-nome-editar").value
+
+    for (i = 0; i < usuarios.length; i++) {
+
+        if (buscar == usuarios[i].nome) {
+            document.getElementById("input-nome-editar").value = usuarios[i].nome
+            document.getElementById("input-sobrenome-editar").value = usuarios[i].sobrenome
+            document.getElementById("input-email-editar").value = usuarios[i].email
+            document.getElementById("input-senha-editar").value = usuarios[i].senha
+        }
+
+    }
+    for (i = 0; i < adms.length; i++) {
+
+        if (buscar == adms[i].nomeAdm) {
+            document.getElementById("input-nome-editar").value = adms[i].nomeAdm
+            document.getElementById("input-email-editar").value = adms[i].emailAdm
+            document.getElementById("input-senha-editar").value = adms[i].senhaAdm
+        }
+
+    }
+    
+}
+
+function editar(){
+
+    carregarDados()
+
+    let alterar = document.getElementById("input-nome-editar").value
+    let alterar2 = document.getElementById("input-sobrenome-editar").value
+    let alterar3 = document.getElementById("input-email-editar").value
+    let alterar4 = document.getElementById("input-senha-editar").value
+
+    for (i = 0; i < usuarios.length; i++) {
+    
+        if (alterar == usuarios[i].nome) {
+            usuarios[i].nome = alterar
+            usuarios[i].sobrenome = alterar2
+            usuarios[i].email = alterar3
+            usuarios[i].senha = alterar4
+        }
+    
+    }
+    for (i = 0; i < adms.length; i++) {
+    
+        if (alterar == adms[i].nomeAdm) {
+            adms[i].nomeAdm = alterar
+            adms[i].emailAdm = alterar3
+            adms[i].senhaAdm = alterar4
+        }
+    
+    }
+
+    salvar()
 }
