@@ -1,5 +1,5 @@
 let total = 0
-const produtos = [
+let produtos = [
     { id: 0, nome: "Notebook", preco: 4500.00, estoque: 35, rating: 4.8 },
     { id: 1, nome: "Mouse", preco: 150.00, estoque: 120, rating: 4.5 },
     { id: 2, nome: "Teclado", preco: 320.00, estoque: 80, rating: 4.6 },
@@ -50,7 +50,10 @@ const produtos = [
     { id: 47, nome: "Purificador de Água", preco: 600.00, estoque: 35, rating: 4.7 },
     { id: 48, nome: "Fogão 4 Bocas", preco: 800.00, estoque: 40, rating: 4.6 },
     { id: 49, nome: "Filtro de Linha", preco: 40.00, estoque: 200, rating: 4.8 }
-]
+]   
+    carregarDados()
+    salvarDados()
+
 let meusFavoritos = []
 let meuCarrinho = []
 
@@ -173,13 +176,24 @@ function calcularTotal() {
     
     document.getElementById("totalVendido").innerHTML = "Total a pagar: R$" + total.toFixed(2)
 }
+ 
+
+function efetuarPagamento(){
+    let user = localStorage.getItem("usuarioLogado")
+    console.log(user);
+    
+    // if()
+
+
+
+}
 
 voltarAoInicio()
 
 //Local storage
 function salvarDados(){
-    localStorage.setItem('estoque', JSON.stringify(estoque))
+    localStorage.setItem('estoque', JSON.stringify(produtos))
 }
 function carregarDados(){
-    estoque = JSON.parse(localStorage.getItem('estoque')) || []
+    produtos = JSON.parse(localStorage.getItem('estoque')) || []
 }
