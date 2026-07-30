@@ -17,35 +17,35 @@ function telaInicial() {
 }
 
 function telaLogin() {
-    carregarDados()
+
     mudarTela()
     document.getElementById("section-login").classList.add("ativa")
 
 }
 
 function telaEditar() {
-    carregarDados()
+
     mudarTela()
     document.getElementById("section-editar").classList.add("ativa")
 
 }
 
 function telaCadastro() {
-    carregarDados()
+
     mudarTela()
     document.getElementById("section-cadastro").classList.add("ativa")
 
 }
 
 function telaExcluir() {
-    carregarDados()
+
     mudarTela()
     document.getElementById("section-excluir").classList.add("ativa")
 
 }
 
 function telaCadastroAdm() {
-    carregarDados()
+
     let senha = prompt("Qual a senha?")
 
     if (senha == "adm123") {
@@ -53,21 +53,11 @@ function telaCadastroAdm() {
         mudarTela()
         document.getElementById("section-cadastroAdm").classList.add("ativa")
 
-    }
-
-    else {
-
-        document.getElementById("aviso-login") = "Senha errada"
-
-    }
-
-
+    } 
 
 }
 
 function cadastrarAdm() {
-
-    carregarDados()
 
     let confirmarSenha = document.getElementById("input-confirmarSenhaAdm").value
 
@@ -106,55 +96,53 @@ function cadastrarAdm() {
 
     salvar()
     limparFormulario()
-
+    console.log(adms)
 }
 
 function cadastrarUsuarios() {
-
-    carregarDados()
-
+    
     let confirmarSenha = document.getElementById("input-confirmarSenha").value
-
+    
     let novoUsuario = {
-
+        
         id: Date.now(),
         nomeDoUsuario: document.getElementById("input-nome").value,
         sobrenomeDoUsuario: document.getElementById("input-sobrenome").value,
         email: document.getElementById("input-email").value,
         senha: document.getElementById("input-senha").value,
         dataDeNascimento: document.getElementById("input-nascimento").value,
-
+        
     }
-
+    
     if (novoUsuario.senha == confirmarSenha) {
-
+        
         if (novoUsuario.nomeDoUsuario != "" && novoUsuario.sobrenomeDoUsuario != ""
             && novoUsuario.email != "" && novoUsuario.senha != "" &&
             novoUsuario.dataDeNascimento != "") {
-
-            document.getElementById("aviso-cadastro").innerHTML = ""
-            usuarios.push(novoUsuario)
-            telaLogin()
-
+                
+                document.getElementById("aviso-cadastro").innerHTML = ""
+                usuarios.push(novoUsuario)
+                telaLogin()
+                
+            }
+            
+            else {
+                
+                document.getElementById("aviso-cadastro").innerHTML = "Preencha seus dados"
+                
+            }
+            
         }
-
+        
         else {
-
-            document.getElementById("aviso-cadastro").innerHTML = "Preencha seus dados"
-
+            
+            document.getElementById("aviso-cadastro").innerHTML = "Senha errada"
+            
         }
-
-    }
-
-    else {
-
-        document.getElementById("aviso-cadastro").innerHTML = "Senha errada"
-
-    }
-
-    salvar()
-    limparFormulario()
-
+        
+        salvar()
+        limparFormulario()
+        console.log(usuarios)
 }
 
 function entrarNoSite() {
@@ -243,8 +231,6 @@ function salvar() {
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios))
     localStorage.setItem("adms", JSON.stringify(adms))
-    console.log(adms)
-    console.log(usuarios)
 
 }
 
@@ -252,8 +238,6 @@ function carregarDados() {
 
     usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
     adms = JSON.parse(localStorage.getItem("adms")) || []
-    console.log(adms)
-    console.log(usuarios)
 }
 
 function testar() {
@@ -323,6 +307,8 @@ function testar() {
     
     salvar()
     limparFormulario()
+    console.log(adms)
+    console.log(usuarios)
 }
 
 function limparFormulario() {
@@ -345,15 +331,16 @@ function limparFormulario() {
 }
 
 function puxarDados() {
-    carregarDados()
 
+    carregarDados()
+    
     let buscar = document.getElementById("input-nome-editar").value
 
     for (i = 0; i < usuarios.length; i++) {
 
-        if (buscar == usuarios[i].nome) {
-            document.getElementById("input-nome-editar").value = usuarios[i].nome
-            document.getElementById("input-sobrenome-editar").value = usuarios[i].sobrenome
+        if (buscar == usuarios[i].nomeDoUsuario) {
+            document.getElementById("input-nome-editar").value = usuarios[i].nomeDoUsuario
+            document.getElementById("input-sobrenome-editar").value = usuarios[i].sobrenomeDoUsuario
             document.getElementById("input-email-editar").value = usuarios[i].email
             document.getElementById("input-senha-editar").value = usuarios[i].senha
         }
